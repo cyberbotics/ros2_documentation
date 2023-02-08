@@ -22,6 +22,9 @@ In this tutorial, you are going to install the package and learn how to run one 
 Prerequisites
 -------------
 
+It is recommended to understand basic ROS principles covered in the beginner :doc:`../../../Tutorials`.
+In particular, :doc:`../../Beginner-Client-Libraries/Creating-A-Workspace/Creating-A-Workspace` and :doc:`../../Beginner-Client-Libraries/Creating-Your-First-ROS2-Package` are useful prerequisites.
+
 Webots is a prerequisite to use the ``webots_ros2`` package. 
 You can follow the `installation procedure <https://cyberbotics.com/doc/guide/installation-procedure>`_ or `build it from sources <https://github.com/cyberbotics/webots/wiki/Windows-installation/>`_.
 
@@ -31,11 +34,11 @@ This option appears when you launch an example of the package and no Webots inst
 Multiple Installations of Webots
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-If you have more than one installation of Webots, ROS2 will look for Webots at the following locations (in this order):
+If you have more than one installation of Webots, ROS 2 will look for Webots at the following locations (in this order):
 
-1. If the ``ROS2_WEBOTS_HOME`` environment variable is set, ROS2 will use the Webots in this folder, regardless of its version.
-2. If the ``WEBOTS_HOME`` environment variable is set, ROS2 will use the Webots in this folder, regardless of its version.
-3. If none of the previous points is set/installed ROS2 will look for Webots in the default installation paths for a compatible version: ``C:\Program Files\Webots``.
+1. If the ``ROS2_WEBOTS_HOME`` environment variable is set, ROS 2 will use the Webots in this folder, regardless of its version.
+2. If the ``WEBOTS_HOME`` environment variable is set, ROS 2 will use the Webots in this folder, regardless of its version.
+3. If none of the previous points is set/installed ROS 2 will look for Webots in the default installation paths for a compatible version: ``C:\Program Files\Webots``.
 4. If Webots couldn't be found, ``webots_ros2`` will show a window and offer automatic Webots installation of the last compatible version.
 
 Tasks
@@ -44,13 +47,13 @@ Tasks
 1 Install WSL2
 ^^^^^^^^^^^^^^^
 
-On Windows, WSL (Windows Subsystem for Linux) allows to improve the user experience with ROS2 compared to native Windows installation, as it runs on a Linux platform. 
+On Windows, WSL (Windows Subsystem for Linux) allows to improve the user experience with ROS 2 compared to native Windows installation, as it runs on a Linux platform. 
 Install WSL with an Ubuntu version which is compatible with your ROS distribution and upgrade to WSL2 following the `official Microsoft tutorial <https://learn.microsoft.com/en-us/windows/wsl/install>`_.
 
-2 Install ROS2 in WSL
-^^^^^^^^^^^^^^^^^^^^^
+2 Install ROS 2 in WSL
+^^^^^^^^^^^^^^^^^^^^^^
 
-Install ROS2 inside Ubuntu WSL, following :doc:`../../../Installation/Ubuntu-Install-Debians`.
+Install ROS 2 inside Ubuntu WSL, following :doc:`../../../Installation/Ubuntu-Install-Debians`.
 
 3 Install ``webots_ros2``
 ^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -117,7 +120,7 @@ The following commands must be run inside the WSL environment.
 WSL doesn't support hardware acceleration (yet). Therefore, Webots should be started on Windows, while the ROS part is running inside WSL.
 To do so, the following commands must be run inside the WSL environment.
 
-First source the ROS2 environment, if not done already.
+First source the ROS 2 environment, if not done already.
 
 .. code-block:: console
 
@@ -130,14 +133,14 @@ Use the mount point "/mnt" to refer to a path on native Windows.
 
         export WEBOTS_HOME=/mnt/c/Program\ Files/Webots
 
-If installed from sources, source your ROS2 workspace, if not done already.
+If installed from sources, source your ROS 2 workspace, if not done already.
 
 .. code-block:: console
 
         cd ~/ros2_ws
         source install/local_setup.bash
 
-Use the ROS2 launch command to start demo packages (e.g. ``webots_ros2_universal_robot``).
+Use the ROS 2 launch command to start demo packages (e.g. ``webots_ros2_universal_robot``).
 
 .. code-block:: console
 

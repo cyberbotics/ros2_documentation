@@ -35,7 +35,7 @@ This option appears when you launch a example of the package and no Webots insta
 Multiple Installations of Webots
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-If you have more than one installation of Webots, ROS2 will look for Webots at the following locations (in this order):
+If you have more than one installation of Webots, ROS 2 will look for Webots at the following locations (in this order):
 
 1. If the ``ROS2_WEBOTS_HOME`` environment variable is set, ROS 2 will use the Webots in this folder, regardless of its version.
 2. If the ``WEBOTS_HOME`` environment variable is set, ROS 2 will use the Webots in this folder, regardless of its version.
@@ -105,7 +105,7 @@ You can either install the official released package, or install it from the las
 
 The following instructions explain how to start a provided example.
 
-First source the ROS2 environment, if not done already.
+First source the ROS 2 environment, if not done already.
 
 .. code-block:: console
 
@@ -117,14 +117,14 @@ Setting the ``WEBOTS_HOME`` environment variable allows you to start a specific 
 
         export WEBOTS_HOME=/usr/local/webots
 
-If installed from sources, source your ROS2 workspace, if not done already.
+If installed from sources, source your ROS 2 workspace, if not done already.
 
 .. code-block:: console
 
         cd ~/ros2_ws
         source install/local_setup.bash
 
-Use the ROS2 launch command to start demo packages (e.g. ``webots_ros2_universal_robot``).
+Use the ROS 2 launch command to start demo packages (e.g. ``webots_ros2_universal_robot``).
 
 .. code-block:: console
 
