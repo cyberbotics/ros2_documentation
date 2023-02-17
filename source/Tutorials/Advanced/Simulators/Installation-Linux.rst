@@ -16,7 +16,7 @@ Background
 
 The ``webots_ros2`` package provides an interface between ROS 2 and Webots.
 It includes several sub-packages, including ``webots_ros2_driver``, which allows to start Webots and communicate with it.
-The interface is used in most of the next tutorials, so it is important to install the package.
+This interface is used in most of the following tutorials, so it is required to install beforehand.
 Other sub-packages are mainly examples that show multiple possible implementations using the interface.
 In this tutorial, you are going to install the package and learn how to run one of these examples.
 
