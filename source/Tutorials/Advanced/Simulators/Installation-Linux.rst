@@ -30,7 +30,7 @@ Webots is a prerequisite to use the ``webots_ros2`` package.
 You can follow the `installation procedure <https://cyberbotics.com/doc/guide/installation-procedure>`_ or `build it from sources <https://github.com/cyberbotics/webots/wiki/Linux-installation/>`_.
 
 Alternatively, you can also let ``webots_ros2`` download and install Webots automatically. 
-This option appears when you launch a example of the package and no Webots installation is found. 
+This option appears when you launch an example of the package and no Webots installation is found. 
 
 Multiple Installations of Webots
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
