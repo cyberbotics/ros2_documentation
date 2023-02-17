@@ -35,7 +35,7 @@ This option appears when you launch an example of the package and no Webots inst
 Multiple Installations of Webots
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-If you have more than one installation of Webots, ROS 2 will look for Webots at the following locations (in this order):
+If you have installed different versions of Webots on your computer, ``webots_ros2`` will look for Webots at the following locations (in this order):
 
 1. If the ``ROS2_WEBOTS_HOME`` environment variable is set, ROS 2 will use the Webots in this folder, regardless of its version.
 2. If the ``WEBOTS_HOME`` environment variable is set, ROS 2 will use the Webots in this folder, regardless of its version.
