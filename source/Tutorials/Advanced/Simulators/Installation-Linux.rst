@@ -40,7 +40,7 @@ If you have installed different versions of Webots on your computer, ``webots_ro
 1. If the ``ROS2_WEBOTS_HOME`` environment variable is set, ROS 2 will use the Webots in this folder, regardless of its version.
 2. If the ``WEBOTS_HOME`` environment variable is set, ROS 2 will use the Webots in this folder, regardless of its version.
 3. If none of these variables is set, ``webots_ros2`` will look for Webots in the default installation paths for a compatible version: ``/usr/local/webots`` and ``/snap/webots/current/usr/share/webots``.
-4. If Webots couldn't be found, ``webots_ros2`` will show a window and offer automatic Webots installation of the last compatible version.
+4. If Webots couldn't be found, ``webots_ros2`` will show a window offering the automatic installation of the latest compatible version of Webots.
 
 Tasks
 -----
