@@ -25,7 +25,7 @@ Prerequisites
 It is recommended to understand basic ROS principles covered in the beginner :doc:`../../../Tutorials`.
 In particular, :doc:`../../Beginner-Client-Libraries/Creating-A-Workspace/Creating-A-Workspace` and :doc:`../../Beginner-Client-Libraries/Creating-Your-First-ROS2-Package` are useful prerequisites.
 
-Webots is a prerequisite to use the ``webots_ros2`` package. 
+It is necessary to install Webots natively on the mac in order to use the ``webots_ros2`` package in the virtual machine as explained below.
 You can follow the `installation procedure <https://cyberbotics.com/doc/guide/installation-procedure>`_ or `build it from sources <https://github.com/cyberbotics/webots/wiki/macOS-installation/>`_.
 
 Tasks
