@@ -216,7 +216,7 @@ The following links provide you with pre-configured UTM images for each version 
 The ``webots_ros2`` version is installed from the official repository (not from sources) and is typically the first one that is compatible with the corresponding Webots version. 
 You are welcome to download an image and upgrade the package, or install it from sources if necessary.
 
-* `R2023a <>`_
+* R2023a
 
 The ``WEBOTS_SHARED_FOLDER`` environment variable must always be set for the package to work properly in the virtual machine (VM). 
 This variable specifies the location of the shared folder that is used to exchange data between the host machine and the VM for the ``webots_ros2`` package. 
