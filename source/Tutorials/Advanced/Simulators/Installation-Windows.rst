@@ -156,6 +156,7 @@ You can check if it works correctly by running any example that uses RViz, for e
 
 .. code-block:: console
 
+        sudo apt install ros-{DISTRO}-slam-toolbox
         ros2 launch webots_ros2_tiago robot_launch.py rviz:=true slam:=true
 
 The Tiago robot can be controlled using:
