@@ -35,7 +35,7 @@ On macOS, a solution based on UTM virtual machines allows to improve the user ex
 However, Webots should be installed natively on macOS and it will be able to communicate with the ROS nodes running in the Virtual Machine (VM).
 This solution allows for native 3D hardware acceleration for Webots.
 The VM is responsible to run all the ROS part (including RViz) and connects to the host machine through TCP connection to start Webots. 
-A shared folder allows to transfer the world and other resource files.
+A shared folder allows the script to transfer the world and other resource files from the VM to macOS where Webots is running.
 
 The following steps explain how to create the VM image with the installation of the ``webots_ros2`` released package. It is also possible to install from sources. 
 In the :ref:`Preconfigured Images` section, you can find already configured images for every release of Webots (starting from R2023a) to download.
