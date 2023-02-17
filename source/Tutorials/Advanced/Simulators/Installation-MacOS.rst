@@ -32,7 +32,9 @@ Tasks
 -----
 
 On macOS, a solution based on UTM virtual machines allows to improve the user experience with ROS 2 compared to native macOS installation, as it allows to run ROS in a Linux environment. 
-The Virtual Machine (VM) is responsible to run all the ROS part (including RViz) and connects to the host machine through TCP connection to start Webots and benefit from native hardware acceleration. 
+However, Webots should be installed natively on macOS and it will be able to communicate with the ROS nodes running in the Virtual Machine (VM).
+This solution allows for native 3D hardware acceleration for Webots.
+The VM is responsible to run all the ROS part (including RViz) and connects to the host machine through TCP connection to start Webots. 
 A shared folder allows to transfer the world and other resource files.
 
 The following steps explain how to create the VM image with the installation of the ``webots_ros2`` released package. It is also possible to install from sources. 
