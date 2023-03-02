@@ -212,14 +212,15 @@ If Webots is closed or the ROS 2 process is interrupted, the local server will a
 Pre-configured Images
 -----------------------
 
-The following links provide you with pre-configured UTM images for each version of Webots. 
+If you don't want to setup the VM from scratch, the following links provide you with pre-configured UTM images for each version of Webots. 
 The ``webots_ros2`` version is installed from the official repository (not from sources) and is typically the first one that is compatible with the corresponding Webots version. 
 You are welcome to download an image and upgrade the package, or install it from sources if necessary.
 
-* R2023a
+* `Version 2023.0.2 for Webots R2023a <https://cyberbotics.com/files/ros2/webots_ros2_2023_0_2.utm.zip>`_
 
-The ``WEBOTS_SHARED_FOLDER`` environment variable must always be set for the package to work properly in the virtual machine (VM). 
-This variable specifies the location of the shared folder that is used to exchange data between the host machine and the VM for the ``webots_ros2`` package. 
+When adding the downloaded image to the UTM software, you should also choose the path to the host shared folder before starting the VM in the drop-down menu (e.g. ``/Users/username/shared``).
+Once the VM is started, the ``WEBOTS_SHARED_FOLDER`` environment variable must always be set for the package to work properly in the virtual machine (VM). 
+This variable specifies to the ``webots_ros2`` package the location of the shared folder that is used to exchange data between the host machine and the VM. 
 The value for this variable should be in the format of ``<host shared folder>:<VM shared folder>``, where ``<host shared folder>`` is the path to the shared folder on the host machine and ``<VM shared folder>`` is the path to the same shared folder on the VM.
 
 In the pre-configured images, ``WEBOTS_SHARED_FOLDER`` is already set in ``~/.bashrc``. 
@@ -227,4 +228,4 @@ You will need to update it to use the correct path for the host folder:
 
 .. code-block:: console
 
-    export WEBOTS_SHARED_FOLDER=/path/to/host/shared/folder:/home/ubuntu/shared
+    export WEBOTS_SHARED_FOLDER=/Users/username/shared:/home/ubuntu/shared
