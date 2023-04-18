@@ -119,13 +119,16 @@ A simple robot is already included in this ``my_world.wbt`` world file.
 
 .. note::
 
-    In case you want to learn how to create your own robot model in Webots, you can check this `tutorial <https://github.com/cyberbotics/webots_ros2/wiki/Tutorial-Create-Webots-Robot>`_.
+    In case you want to learn how to create your own robot model in Webots, you can check this `tutorial <https://cyberbotics.com/doc/guide/tutorial-6-4-wheels-robot>`_.
 
 3 Change the my_robot_driver.py file
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The ``webots_ros2_driver`` sub-package automatically creates a ROS 2 interface for most sensors.
-In this task, you will extend this interface by changing the ``my_robot_driver.py`` file.
+More details on existing device interfaces and how to configure them is given in :ref:`Updating my_robot.urdf`.
+In this task, you will extend this interface by creating your own custom Python plugin: ``my_robot_driver.py``.
+This custom plugin is a ROS node equivalent to a robot controller.
+You can use it to access the `Webots robot API  <https://cyberbotics.com/doc/reference/robot?tab-language=python>`_ and create your own topics and services to control your robot.
 
 .. note::
 
@@ -141,7 +144,12 @@ Open ``my_package/my_package/my_robot_driver.py`` in your favorite editor and re
 As you can see, the ``MyRobotDriver`` class implements three methods.
 
 The first method, named ``init(self, ...)``, is actually the ROS node counterpart of the Python ``__init__(self, ...)`` constructor.
-It first gets the robot instance from the simulation (which can be used to access the `Webots robot API <https://cyberbotics.com/doc/reference/robot?tab-language=python>`_).
+The ``init`` method always takes two arguments:
+
+- The ``webots_node`` argument contains a reference on the Webots instance.
+- The ``properties`` argument is a dictionary created from the XML tags given in the URDF files (:ref:`4 Create the my_robot.urdf file`) and allows to pass parameters to the controller.
+
+The robot instance from the simulation ``self.__robot`` can be used to access the `Webots robot API <https://cyberbotics.com/doc/reference/robot?tab-language=python>`_.
 Then, it gets the two motor instances and initializes them with a target position and a target velocity.
 Finally a ROS node is created and a callback method is registered for a ROS topic named ``/cmd_vel`` that will handle ``Twist`` messages.
 
@@ -168,11 +176,13 @@ This conversion depends on the structure of the robot, more specifically on the 
     :dedent: 4
     :lines: 29-39
 
+.. _4 Create the my_robot.urdf file:
+
 4 Create the my_robot.urdf file
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 You now have to create a URDF file to declare the ``my_robot_driver.py`` Python plugin.
-This will allow the ``webots_ros2_driver`` ROS node to launch the plugin.
+This will allow the ``webots_ros2_driver`` ROS node to launch the plugin and connect it to the target robot.
 
 In the ``my_package/resource`` folder create a text file named ``my_robot.urdf`` with this contents:
 
@@ -183,6 +193,18 @@ In the ``my_package/resource`` folder create a text file named ``my_robot.urdf``
 
     This simple URDF file doesn't contain any link or joint information about the robot as it is not needed in this tutorial.
     However, URDF files usually contain much more information as explained in the :doc:`../../../Intermediate/URDF/URDF-Main`.
+
+.. note::
+
+    Here the Python plugin does not take any input parameter, but this can be achieved with a tag containing the parameter name.
+    
+    .. code-block:: xml
+
+        <plugin type="my_package.my_robot_driver.MyRobotDriver">
+            <parameterName>someValue</parameterName>
+        </plugin>
+
+    This is namely used to pass parameters to existing Webots device plugins (see :ref:`Updating my_robot.urdf`).
 
 5 Create the launch file
 ^^^^^^^^^^^^^^^^^^^^^^^^
@@ -230,7 +252,7 @@ The ``robot_description`` parameter holds the contents of the URDF file which re
     :dedent: 4
     :lines: 19-27
 
-After that, the three nodes are set to be launched in the ``LaunchDescription`` constructor:
+After that, the two nodes are set to be launched in the ``LaunchDescription`` constructor:
 
 .. literalinclude:: Code/robot_launch.py
     :language: python
@@ -243,6 +265,10 @@ Finally, an optional part is added in order to shutdown all the nodes once Webot
     :language: python
     :dedent: 8
     :lines: 32-37
+
+.. note::
+
+    More details on ``webots_ros2_driver`` and ``WebotsLauncher`` arguments can be found `on the nodes reference page <https://github.com/cyberbotics/webots_ros2/wiki/References-Nodes>`_.
 
 6 Modify the setup.py file
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -291,7 +317,7 @@ This sets-up the package and adds in the ``data_files`` variable the newly added
 
     .. group-tab:: macOS
 
-        On macOS, a local server must be started on the host to start Webots from the Docker container.
+        On macOS, a local server must be started on the host to start Webots from the VM.
         The local server can be downloaded `on the webots-server repository <https://github.com/cyberbotics/webots-server/blob/main/local_simulation_server.py>`_.
 
         In a terminal of the host machine (not in the VM), specify the Webots installation folder (e.g. ``/Applications/Webots.app``) and start the server using the following commands:
@@ -334,16 +360,23 @@ To prevent this, let's use the sensors of the robot to detect the obstacles and 
 Close the Webots window, this should also shutdown your ROS nodes started from the launcher.
 Close also the topic command with ``Ctrl+C`` in the second terminal.
 
+.. _Updating my_robot.urdf:
+
 8 Updating my_robot.urdf
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-You have to modify the URDF file in order to enable the sensors.
+As mentioned in previous sections, ``webots_ros2_driver`` contains plugins to interface most of Webots devices with ROS 2 directly.
+These plugins can be loaded using the ``<device>`` tag in the URDF file of the robot.
+The ``reference`` attribute should match the Webots device ``name`` parameter.
+The list of all existing interfaces and the corresponding parameters can be found `on the devices reference page <https://github.com/cyberbotics/webots_ros2/wiki/References-Devices>`_.
+For available devices that are not configured in the URDF file, the interface will be automatically created and default values will be used for ROS parameters (e.g. update rate, topic name, and frame name).
+
 In ``my_robot.urdf`` replace the whole contents with:
 
 .. literalinclude:: Code/my_robot_with_sensors.urdf
     :language: xml
 
-The ROS 2 interface will parse the ``<device>`` tags referring to the **DistanceSensor** nodes and use the standard parameters in the ``<ros>`` tags to enable the sensors and name their topics.
+In addition to the custom Python plugin, the ``webots_ros2_driver`` will parse the ``<device>`` tags referring to the **DistanceSensor** nodes and use the standard parameters in the ``<ros>`` tags to enable the sensors and name their topics.
 
 9 Creating a ROS node to avoid obstacles
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
