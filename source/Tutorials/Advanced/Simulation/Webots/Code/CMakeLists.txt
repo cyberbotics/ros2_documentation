@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
-project(my_robot_driver)
+project(my_package)
 
 if(NOT CMAKE_CXX_STANDARD)
   set(CMAKE_CXX_STANDARD 14)
@@ -14,7 +14,7 @@ find_package(pluginlib REQUIRED)
 find_package(webots_ros2_driver REQUIRED)
 
 # Export the plugin configuration file
-pluginlib_export_plugin_description_file(webots_ros2_driver my_package.xml)
+pluginlib_export_plugin_description_file(webots_ros2_driver my_robot_driver.xml)
 
 # The rest is standard ROS 2 packaging description
 add_library(
@@ -38,6 +38,13 @@ install(TARGETS
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib
   RUNTIME DESTINATION bin
+)
+# Install directories files.
+install(DIRECTORY
+  launch
+  resource
+  worlds
+  DESTINATION share/${PROJECT_NAME}/
 )
 ament_export_include_directories(
   include

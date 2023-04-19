@@ -305,7 +305,7 @@ In the ``my_package/resource`` folder create a text file named ``my_robot.urdf``
 
 .. note::
 
-    Here the Python plugin does not take any input parameter, but this can be achieved with a tag containing the parameter name.
+    Here the plugin does not take any input parameter, but this can be achieved with a tag containing the parameter name.
 
     .. code-block:: xml
 

@@ -1,4 +1,4 @@
-#include "my_packages/MyRobotDriver.hpp"
+#include "my_package/MyRobotDriver.hpp"
 
 #include "rclcpp/rclcpp.hpp"
 #include <cstdio>
@@ -25,7 +25,7 @@ void MyRobotDriver::init(
 
   cmd_vel_subscription_ = node->create_subscription<geometry_msgs::msg::Twist>(
       "/cmd_vel", rclcpp::SensorDataQoS().reliable(),
-      std::bind(&MyRobotDriver::cmd_vel_callback, this, std::placeholders::_1));
+      std::bind(&MyRobotDriver::cmdVelCallback, this, std::placeholders::_1));
 }
 
 void MyRobotDriver::cmdVelCallback(
