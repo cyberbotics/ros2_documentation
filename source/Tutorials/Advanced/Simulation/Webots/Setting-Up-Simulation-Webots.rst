@@ -295,8 +295,17 @@ This will allow the ``webots_ros2_driver`` ROS node to launch the plugin and con
 
 In the ``my_package/resource`` folder create a text file named ``my_robot.urdf`` with this content:
 
-.. literalinclude:: Code/my_robot.urdf
-    :language: xml
+.. tabs::
+
+    .. group-tab:: Python
+        
+        .. literalinclude:: Code/my_robot_python.urdf
+            :language: xml
+
+    .. group-tab:: C++
+        
+        .. literalinclude:: Code/my_robot_cpp.urdf
+            :language: xml
 
 .. note::
 
@@ -307,11 +316,24 @@ In the ``my_package/resource`` folder create a text file named ``my_robot.urdf``
 
     Here the plugin does not take any input parameter, but this can be achieved with a tag containing the parameter name.
 
-    .. code-block:: xml
+.. tabs::
 
-        <plugin type="my_package.my_robot_driver.MyRobotDriver">
-            <parameterName>someValue</parameterName>
-        </plugin>
+    .. group-tab:: Python
+        
+        .. code-block:: xml
+
+            <plugin type="my_package.my_robot_driver.MyRobotDriver">
+                <parameterName>someValue</parameterName>
+            </plugin>
+
+    .. group-tab:: C++
+        
+        .. code-block:: xml
+
+            <plugin type="my_robot_driver::MyRobotDriver">
+                <parameterName>someValue</parameterName>
+            </plugin>
+
 
     This is namely used to pass parameters to existing Webots device plugins (see :ref:`Updating my_robot.urdf`).
 
