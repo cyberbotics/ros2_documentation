@@ -73,40 +73,87 @@ Let's organize the code in a custom ROS 2 package.
 Create a new package named ``my_package`` from the ``src`` folder of your ROS 2 workspace.
 Change the current directory of your terminal to ``ros2_ws/src`` and run:
 
-.. code-block:: console
+.. tabs::
 
-        ros2 pkg create --build-type ament_python --node-name my_robot_driver my_package --dependencies rclpy geometry_msgs webots_ros2_driver
+    .. group-tab:: Python
 
-The ``--node-name my_robot_driver`` option will create a ``my_robot_driver.py`` template Python plugin in the ``my_package`` subfolder that you will modify later.
-The ``--dependencies rclpy geometry_msgs webots_ros2_driver`` option specifies the packages needed by the ``my_robot_driver.py`` plugin in the ``package.xml`` file.
-Let's add a ``launch`` and a ``worlds`` folder inside the ``my_package`` folder.
+        .. code-block:: console
 
-.. code-block:: console
+            ros2 pkg create --build-type ament_python --node-name my_robot_driver my_package --dependencies rclpy geometry_msgs webots_ros2_driver
 
-        cd my_package
-        mkdir launch
-        mkdir worlds
+        The ``--node-name my_robot_driver`` option will create a ``my_robot_driver.py`` template Python plugin in the ``my_package`` subfolder that you will modify later.
+        The ``--dependencies rclpy geometry_msgs webots_ros2_driver`` option specifies the packages needed by the ``my_robot_driver.py`` plugin in the ``package.xml`` file.
 
-You should end up with the following folder structure:
+        Let's add a ``launch`` and a ``worlds`` folder inside the ``my_package`` folder.
 
-.. code-block:: console
+        .. code-block:: console
 
-          src/
-          └── my_package/
-              ├── launch/
-              ├── my_package/
-              │   ├── __init__.py
-              │   └── my_robot_driver.py
-              ├── resource/
-              │   └── my_package
-              ├── test/
-              │   ├── test_copyright.py
-              │   ├── test_flake8.py
-              │   └── test_pep257.py
-              ├── worlds/
-              ├── package.xml
-              ├── setup.cfg
-              └── setup.py
+                cd my_package
+                mkdir launch
+                mkdir worlds
+
+        You should end up with the following folder structure:
+
+        .. code-block:: console
+
+            src/
+            └── my_package/
+                ├── launch/
+                ├── my_package/
+                │   ├── __init__.py
+                │   └── my_robot_driver.py
+                ├── resource/
+                │   └── my_package
+                ├── test/
+                │   ├── test_copyright.py
+                │   ├── test_flake8.py
+                │   └── test_pep257.py
+                ├── worlds/
+                ├── package.xml
+                ├── setup.cfg
+                └── setup.py
+
+    .. group-tab:: C++
+
+        .. code-block:: console
+
+            ros2 pkg create --build-type ament_cmake --node-name my_robot_driver my_package --dependencies rclcpp geometry_msgs webots_ros2_driver pluginlib
+
+        The ``--node-name my_robot_driver`` option will create a ``my_robot_driver.cpp`` template C++ plugin in the ``my_package/src`` subfolder that you will modify later.
+        The ``--dependencies rclcpp geometry_msgs webots_ros2_driver pluginlib`` option specifies the packages needed by the ``my_robot_driver`` plugin in the ``package.xml`` file.
+
+
+        Let's add a ``launch`` and a ``worlds`` folder inside the ``my_package`` folder.
+
+        .. code-block:: console
+
+            cd my_package
+            mkdir launch
+            mkdir worlds
+
+        Two additional files must be created: the header file for ``my_robot_driver`` and the ``my_package.xml`` pluginlib description file.
+
+        .. code-block:: console
+
+            touch my_package.xml
+            touch include/my_package/my_robot_driver.hpp
+
+        You should end up with the following folder structure:
+
+        .. code-block:: console
+
+            src/
+            └── my_package/
+                ├── include/
+                │   └── my_package/
+                │       └── my_robot_driver.hpp
+                ├── launch/
+                ├── src/
+                │   └── my_robot_driver.cpp
+                ├── worlds/
+                ├── CMakeList.txt
+                ├── my_package.xml
+                └── package.xml
 
 2 Setup the simulation world
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -197,7 +244,7 @@ In the ``my_package/resource`` folder create a text file named ``my_robot.urdf``
 .. note::
 
     Here the Python plugin does not take any input parameter, but this can be achieved with a tag containing the parameter name.
-    
+
     .. code-block:: xml
 
         <plugin type="my_package.my_robot_driver.MyRobotDriver">
