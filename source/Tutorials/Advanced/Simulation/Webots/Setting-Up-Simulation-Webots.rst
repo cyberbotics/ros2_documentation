@@ -201,7 +201,7 @@ You can use it to access the `Webots robot API  <https://cyberbotics.com/doc/ref
         The ``init`` method always takes two arguments:
 
         - The ``webots_node`` argument contains a reference on the Webots instance.
-        - The ``properties`` argument is a dictionary created from the XML tags given in the URDF files (:ref:`4 Create the my_robot.urdf file`) and allows to pass parameters to the controller.
+        - The ``properties`` argument is a dictionary created from the XML tags given in the URDF files (:ref:`4 Create the my_robot.urdf file`) and allows you to pass parameters to the controller.
 
         The robot instance from the simulation ``self.__robot`` can be used to access the `Webots robot API <https://cyberbotics.com/doc/reference/robot?tab-language=python>`_.
         Then, it gets the two motor instances and initializes them with a target position and a target velocity.
