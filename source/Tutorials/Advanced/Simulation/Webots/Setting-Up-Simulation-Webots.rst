@@ -237,7 +237,7 @@ You can use it to access the `Webots robot API  <https://cyberbotics.com/doc/ref
         .. literalinclude:: Code/MyRobotDriver.hpp
             :language: cpp
 
-        The class ``MyRobotDriver`` is defined, which inherits from the ``webots_ros2_driver::PluginInterface`` class. 
+        The class ``MyRobotDriver`` is defined, which inherits from the ``webots_ros2_driver::PluginInterface`` class.
         The plugin has to override ``step(...)`` and ``init(...)`` functions.
         More details are given in the ``MyRobotDriver.cpp`` file.
         Several helper methods, callbacks and member variables that will be used internally by the plugin are declared privately.
@@ -248,11 +248,11 @@ You can use it to access the `Webots robot API  <https://cyberbotics.com/doc/ref
             :language: cpp
 
         The ``MyRobotDriver::init`` method is executed once the plugin is loaded by the ``webots_ros2_driver`` package.
-        It takes two arguments: 
+        It takes two arguments:
 
         * A pointer to the ``WebotsNode`` defined by ``webots_ros2_driver``, which allows to access the ROS 2 node functions.
         * The ``parameters`` argument is an unordered map of strings, created from the XML tags given in the URDF files (:ref:`4 Create the my_robot.urdf file`) and allows to pass parameters to the controller.
-         
+
         It initializes the plugin by setting up the robot motors, setting their positions and velocities, and subscribing to the ``/cmd_vel`` topic.
 
         .. literalinclude:: Code/MyRobotDriver.cpp
@@ -265,18 +265,18 @@ You can use it to access the `Webots robot API  <https://cyberbotics.com/doc/ref
             :language: cpp
             :lines: 31-35
 
-        The ``step()`` method is called at every time step of the simulation. 
-        At each time step, the method will retrieve the desired ``forward_speed`` and ``angular_speed`` from ``cmd_vel_msg``. 
-        As the motors are controlled with angular velocities, the method will then convert the ``forward_speed`` and ``angular_speed`` into individual commands for each wheel. 
+        The ``step()`` method is called at every time step of the simulation.
+        At each time step, the method will retrieve the desired ``forward_speed`` and ``angular_speed`` from ``cmd_vel_msg``.
+        As the motors are controlled with angular velocities, the method will then convert the ``forward_speed`` and ``angular_speed`` into individual commands for each wheel.
         This conversion depends on the structure of the robot, more specifically on the radius of the wheel and the distance between them.
-        
+
         .. literalinclude:: Code/MyRobotDriver.cpp
             :language: cpp
             :lines: 37-50
 
-        The final lines of the file define the end of the ``my_robot_driver`` namespace and include a macro to export the ``MyRobotDriver`` class as a plugin using the ``PLUGINLIB_EXPORT_CLASS`` macro. 
+        The final lines of the file define the end of the ``my_robot_driver`` namespace and include a macro to export the ``MyRobotDriver`` class as a plugin using the ``PLUGINLIB_EXPORT_CLASS`` macro.
         This allows the plugin to be loaded by the Webots ROS2 driver at runtime.
-        
+
         .. literalinclude:: Code/MyRobotDriver.cpp
             :language: cpp
             :lines: 53-55
@@ -298,12 +298,12 @@ In the ``my_package/resource`` folder create a text file named ``my_robot.urdf``
 .. tabs::
 
     .. group-tab:: Python
-        
+
         .. literalinclude:: Code/my_robot_python.urdf
             :language: xml
 
     .. group-tab:: C++
-        
+
         .. literalinclude:: Code/my_robot_cpp.urdf
             :language: xml
 
@@ -319,7 +319,7 @@ In the ``my_package/resource`` folder create a text file named ``my_robot.urdf``
     .. tabs::
 
         .. group-tab:: Python
-            
+
             .. code-block:: xml
 
                 <plugin type="my_package.my_robot_driver.MyRobotDriver">
@@ -327,7 +327,7 @@ In the ``my_package/resource`` folder create a text file named ``my_robot.urdf``
                 </plugin>
 
         .. group-tab:: C++
-            
+
             .. code-block:: xml
 
                 <plugin type="my_robot_driver::MyRobotDriver">
@@ -419,12 +419,12 @@ Finally, an optional part is added in order to shutdown all the nodes once Webot
     .. group-tab:: C++
 
         Finally, before you can start the launch file, you have to modify ``CMakeLists.txt`` and ``my_robot_driver.xml`` files:
-        
+
         * ``CMakeLists.txt`` defines the compilation rules of your plugin.
-        * ``my_robot_driver.xml`` is necessary for the pluginlib to find your Webots ROS 2 plugin. 
-        
+        * ``my_robot_driver.xml`` is necessary for the pluginlib to find your Webots ROS 2 plugin.
+
         Open ``my_package/my_robot_driver.xml`` and replace its contents with:
-        
+
         .. literalinclude:: Code/my_robot_driver.xml
             :language: xml
 
@@ -435,10 +435,10 @@ Finally, an optional part is added in order to shutdown all the nodes once Webot
 
         It exports the plugin configuration file with the ``pluginlib_export_plugin_description_file()`` command.
 
-        Next, it defines a shared library of your C++ plugin ``src/MyRobotDriver.cpp``. 
+        Next, it defines a shared library of your C++ plugin ``src/MyRobotDriver.cpp``.
         It sets the ``include`` directories to include and specifies the library dependencies using ``ament_target_dependencies()``.
 
-        The file then installs the library, the directories ``launch``, ``resource``, and ``worlds`` to the ``share/my_package`` directory. 
+        The file then installs the library, the directories ``launch``, ``resource``, and ``worlds`` to the ``share/my_package`` directory.
         Finally, it exports the include directories and libraries using ``ament_export_include_directories()`` and ``ament_export_libraries()``, respectively, and declares the package using ``ament_package()``.
 
 
@@ -537,12 +537,12 @@ In ``my_robot.urdf`` replace the whole contents with:
 .. tabs::
 
     .. group-tab:: Python
-        
+
         .. literalinclude:: Code/my_robot_with_sensors_python.urdf
             :language: xml
 
     .. group-tab:: C++
-        
+
         .. literalinclude:: Code/my_robot_with_sensors_cpp.urdf
             :language: xml
 
@@ -555,7 +555,7 @@ In addition to your custom plugin, the ``webots_ros2_driver`` will parse the ``<
 .. tabs::
 
     .. group-tab:: Python
-        
+
         The robot will use a standard ROS node to detect the wall and send motor commands to avoid it.
         In the ``my_package/my_package/`` folder, create a file named ``obstacle_avoider.py`` with this code:
 
@@ -586,7 +586,7 @@ In addition to your custom plugin, the ``webots_ros2_driver`` will parse the ``<
             :lines: 22-32
 
     .. group-tab:: C++
-        
+
         The robot will use a standard ROS node to detect the wall and send motor commands to avoid it.
         In the ``my_package/include/my_package`` folder, create a header file named ``ObstacleAvoider.hpp`` with this code:
 
@@ -594,7 +594,7 @@ In addition to your custom plugin, the ``webots_ros2_driver`` will parse the ``<
             :language: cpp
 
         In the ``my_package/src`` folder, create a source file named ``ObstacleAvoider.cpp`` with this code:
-        
+
         .. literalinclude:: Code/ObstacleAvoider.cpp
             :language: cpp
 
@@ -635,9 +635,9 @@ You have to modify these two other files to launch your new node.
             :lines: 24-27
 
         This will add an entry point for the ``obstacle_avoider`` node.
-    
+
     .. group-tab:: C++
-      
+
         Edit ``CMakeLists.txt`` and add the compilation and installation of the ``obstacle_avoider``:
 
         .. literalinclude:: Code/CMakeLists_sensor.txt
