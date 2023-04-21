@@ -433,7 +433,14 @@ Finally, an optional part is added in order to shutdown all the nodes once Webot
         .. literalinclude:: Code/CMakeLists.txt
             :language: cmake
 
-        This sets-up the package and adds in the ``data_files`` variable the newly added files: ``my_world.wbt``, ``my_robot.urdf`` and ``robot_launch.py``.
+        It exports the plugin configuration file with the ``pluginlib_export_plugin_description_file()`` command.
+
+        Next, it defines a shared library of your C++ plugin ``src/MyRobotDriver.cpp``. 
+        It sets the ``include`` directories to include and specifies the library dependencies using ``ament_target_dependencies()``.
+
+        The file then installs the library, the directories ``launch``, ``resource``, and ``worlds`` to the ``share/my_package`` directory. 
+        Finally, it exports the include directories and libraries using ``ament_export_include_directories()`` and ``ament_export_libraries()``, respectively, and declares the package using ``ament_package()``.
+
 
 7 Test the code
 ^^^^^^^^^^^^^^^
@@ -523,59 +530,119 @@ As mentioned in previous sections, ``webots_ros2_driver`` contains plugins to in
 These plugins can be loaded using the ``<device>`` tag in the URDF file of the robot.
 The ``reference`` attribute should match the Webots device ``name`` parameter.
 The list of all existing interfaces and the corresponding parameters can be found `on the devices reference page <https://github.com/cyberbotics/webots_ros2/wiki/References-Devices>`_.
-For available devices that are not configured in the URDF file, the interface will be automatically created and default values will be used for ROS parameters (e.g. update rate, topic name, and frame name).
+For available devices that are not configured in the URDF file, the interface will be automatically created and default values will be used for ROS parameters (e.g. ``update rate``, ``topic name``, and ``frame name``).
 
 In ``my_robot.urdf`` replace the whole contents with:
 
-.. literalinclude:: Code/my_robot_with_sensors.urdf
-    :language: xml
+.. tabs::
 
-In addition to the custom Python plugin, the ``webots_ros2_driver`` will parse the ``<device>`` tags referring to the **DistanceSensor** nodes and use the standard parameters in the ``<ros>`` tags to enable the sensors and name their topics.
+    .. group-tab:: Python
+        
+        .. literalinclude:: Code/my_robot_with_sensors_python.urdf
+            :language: xml
+
+    .. group-tab:: C++
+        
+        .. literalinclude:: Code/my_robot_with_sensors_cpp.urdf
+            :language: xml
+
+
+In addition to your custom plugin, the ``webots_ros2_driver`` will parse the ``<device>`` tags referring to the **DistanceSensor** nodes and use the standard parameters in the ``<ros>`` tags to enable the sensors and name their topics.
 
 9 Creating a ROS node to avoid obstacles
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The robot will use a standard ROS node to detect the wall and send motor commands to avoid it.
-In the ``my_package/my_package/`` folder, create a file named ``obstacle_avoider.py`` with this code:
+.. tabs::
 
-.. literalinclude:: Code/obstacle_avoider.py
-    :language: python
+    .. group-tab:: Python
+        
+        The robot will use a standard ROS node to detect the wall and send motor commands to avoid it.
+        In the ``my_package/my_package/`` folder, create a file named ``obstacle_avoider.py`` with this code:
 
-This node will create a publisher for the command and subscribe to the sensors topics here:
+        .. literalinclude:: Code/obstacle_avoider.py
+            :language: python
 
-.. literalinclude:: Code/obstacle_avoider.py
-    :language: python
-    :dedent: 8
-    :lines: 14-17
+        This node will create a publisher for the command and subscribe to the sensors topics here:
 
-When a measurement is received from the left sensor it will be copied to a member field:
+        .. literalinclude:: Code/obstacle_avoider.py
+            :language: python
+            :dedent: 8
+            :lines: 14-17
 
-.. literalinclude:: Code/obstacle_avoider.py
-    :language: python
-    :dedent: 4
-    :lines: 19-20
+        When a measurement is received from the left sensor it will be copied to a member field:
 
-Finally, a message will be sent to the ``/cmd_vel`` topic when a measurement from the right sensor is received.
-The ``command_message`` will register at least a forward speed in ``linear.x`` in order to make the robot move when no obstacle is detected.
-If any of the two sensors detect an obstacle, ``command_message`` will also register a rotational speed in ``angular.z`` in order to make the robot turn right.
+        .. literalinclude:: Code/obstacle_avoider.py
+            :language: python
+            :dedent: 4
+            :lines: 19-20
 
-.. literalinclude:: Code/obstacle_avoider.py
-    :language: python
-    :dedent: 4
-    :lines: 22-32
+        Finally, a message will be sent to the ``/cmd_vel`` topic when a measurement from the right sensor is received.
+        The ``command_message`` will register at least a forward speed in ``linear.x`` in order to make the robot move when no obstacle is detected.
+        If any of the two sensors detect an obstacle, ``command_message`` will also register a rotational speed in ``angular.z`` in order to make the robot turn right.
 
-10 Updating setup.py and robot_launch.py
+        .. literalinclude:: Code/obstacle_avoider.py
+            :language: python
+            :dedent: 4
+            :lines: 22-32
+
+    .. group-tab:: C++
+        
+        The robot will use a standard ROS node to detect the wall and send motor commands to avoid it.
+        In the ``my_package/include/my_package`` folder, create a header file named ``ObstacleAvoider.hpp`` with this code:
+
+        .. literalinclude:: Code/ObstacleAvoider.hpp
+            :language: cpp
+
+        In the ``my_package/src`` folder, create a source file named ``ObstacleAvoider.cpp`` with this code:
+        
+        .. literalinclude:: Code/ObstacleAvoider.cpp
+            :language: cpp
+
+        This node will create a publisher for the command and subscribe to the sensors topics here:
+
+        .. literalinclude:: Code/ObstacleAvoider.cpp
+            :language: cpp
+            :lines: 6-16
+
+        When a measurement is received from the left sensor it will be copied to a member field:
+
+        .. literalinclude:: Code/ObstacleAvoider.cpp
+            :language: cpp
+            :lines: 19-22
+
+        Finally, a message will be sent to the ``/cmd_vel`` topic when a measurement from the right sensor is received.
+        The ``command_message`` will register at least a forward speed in ``linear.x`` in order to make the robot move when no obstacle is detected.
+        If any of the two sensors detect an obstacle, ``command_message`` will also register a rotational speed in ``angular.z`` in order to make the robot turn right.
+
+        .. literalinclude:: Code/ObstacleAvoider.cpp
+            :language: cpp
+            :lines: 24-38
+
+
+10 Updating additional files
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 You have to modify these two other files to launch your new node.
-Edit ``setup.py`` and replace ``'console_scripts'`` with:
 
-.. literalinclude:: Code/setup_sensor.py
-    :language: python
-    :dedent: 8
-    :lines: 24-27
+.. tabs::
 
-This will add an entry point for the ``obstacle_avoider`` node.
+    .. group-tab:: Python
+        Edit ``setup.py`` and replace ``'console_scripts'`` with:
+
+        .. literalinclude:: Code/setup_sensor.py
+            :language: python
+            :dedent: 8
+            :lines: 24-27
+
+        This will add an entry point for the ``obstacle_avoider`` node.
+    
+    .. group-tab:: C++
+      
+        Edit ``CMakeLists.txt`` and add the compilation and installation of the ``obstacle_avoider``:
+
+        .. literalinclude:: Code/CMakeLists_sensor.txt
+            :language: cmake
+
 
 Go to the file ``robot_launch.py`` and replace ``def generate_launch_description():`` with:
 
