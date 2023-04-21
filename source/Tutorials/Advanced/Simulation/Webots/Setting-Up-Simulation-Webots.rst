@@ -316,23 +316,23 @@ In the ``my_package/resource`` folder create a text file named ``my_robot.urdf``
 
     Here the plugin does not take any input parameter, but this can be achieved with a tag containing the parameter name.
 
-.. tabs::
+    .. tabs::
 
-    .. group-tab:: Python
-        
-        .. code-block:: xml
+        .. group-tab:: Python
+            
+            .. code-block:: xml
 
-            <plugin type="my_package.my_robot_driver.MyRobotDriver">
-                <parameterName>someValue</parameterName>
-            </plugin>
+                <plugin type="my_package.my_robot_driver.MyRobotDriver">
+                    <parameterName>someValue</parameterName>
+                </plugin>
 
-    .. group-tab:: C++
-        
-        .. code-block:: xml
+        .. group-tab:: C++
+            
+            .. code-block:: xml
 
-            <plugin type="my_robot_driver::MyRobotDriver">
-                <parameterName>someValue</parameterName>
-            </plugin>
+                <plugin type="my_robot_driver::MyRobotDriver">
+                    <parameterName>someValue</parameterName>
+                </plugin>
 
 
     This is namely used to pass parameters to existing Webots device plugins (see :ref:`Updating my_robot.urdf`).
