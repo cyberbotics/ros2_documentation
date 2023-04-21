@@ -182,7 +182,7 @@ You can use it to access the `Webots robot API  <https://cyberbotics.com/doc/ref
 .. note::
 
     The purpose of this tutorial is to show a basic example with a minimum number of dependencies.
-    However, you could avoid the use of this Python plugin by using another ``webots_ros2`` sub-package named ``webots_ros2_control``, introducing a new dependency.
+    However, you could avoid the use of this plugin by using another ``webots_ros2`` sub-package named ``webots_ros2_control``, introducing a new dependency.
     This other sub-package creates an interface with the ``ros2_control`` package that facilitates the control of a differential wheeled robot.
 
 
@@ -377,6 +377,7 @@ But if you had more robots in the simulation, you would have to run one instance
 ``WEBOTS_CONTROLLER_URL`` is used to define the name of the robot the driver should connect to.
 The ``controller_url_prefix()`` method is mandatory, as it allows ``webots_ros2_driver`` to add the correct protocol prefix depending on your platform.
 The ``robot_description`` parameter holds the contents of the URDF file which refers to the ``my_robot_driver.py`` Python plugin.
+You can see the ``driver`` node as the interface that connects your controller plugin to the target robot.
 
 .. literalinclude:: Code/robot_launch.py
     :language: python
