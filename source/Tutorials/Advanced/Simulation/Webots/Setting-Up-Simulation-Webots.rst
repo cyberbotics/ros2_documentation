@@ -302,10 +302,16 @@ In the ``my_package/resource`` folder create a text file named ``my_robot.urdf``
         .. literalinclude:: Code/my_robot_python.urdf
             :language: xml
 
+        The ``type`` attribute specifies the path to the Class given by the hierarchical structure of files.
+        ``webots_ros2_driver`` is responsible for loading the class based on the specified package and modules.
+
     .. group-tab:: C++
 
         .. literalinclude:: Code/my_robot_cpp.urdf
             :language: xml
+
+        The ``type`` attribute specifies the namespace and class name to load.
+        ``pluginlib`` is responsible for loading the class based on the specified information.
 
 .. note::
 
