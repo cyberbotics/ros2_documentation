@@ -376,7 +376,7 @@ In your case, you need to run a single instance of this node, because you have a
 But if you had more robots in the simulation, you would have to run one instance of this node per robot.
 ``WEBOTS_CONTROLLER_URL`` is used to define the name of the robot the driver should connect to.
 The ``controller_url_prefix()`` method is mandatory, as it allows ``webots_ros2_driver`` to add the correct protocol prefix depending on your platform.
-The ``robot_description`` parameter holds the contents of the URDF file which refers to the ``my_robot_driver.py`` Python plugin.
+The ``robot_description`` parameter holds the contents of the URDF file which refers to the ``MyRobotDriver`` plugin.
 You can see the ``driver`` node as the interface that connects your controller plugin to the target robot.
 
 .. literalinclude:: Code/robot_launch.py
@@ -711,7 +711,7 @@ You can press ``Ctrl+F10`` in Webots or go to the ``View`` menu, ``Optional Rend
 Summary
 -------
 
-In this tutorial, you set-up a realistic robot simulation with Webots, implemented a Python plugin to control the motors of the robot, and implemented a ROS node using the sensors to avoid the obstacles.
+In this tutorial, you set-up a realistic robot simulation with Webots, implemented a custom plugin to control the motors of the robot, and implemented a ROS node using the sensors to avoid the obstacles.
 
 Next steps
 ----------
