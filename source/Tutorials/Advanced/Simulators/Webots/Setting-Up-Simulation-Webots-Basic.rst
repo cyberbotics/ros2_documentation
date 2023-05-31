@@ -49,6 +49,8 @@ In particular, :doc:`../../../Beginner-CLI-Tools/Introducing-Turtlesim/Introduci
         The Linux and ROS commands of this tutorial must be run in a pre-configured Linux Virtual Machine (VM).
         The following page :doc:`./Installation-MacOS` explains how to install the ``webots_ros2`` package on macOS.
 
+This tutorial is only compatible with version 2023.1.0 of ``webots_ros2`` and Webots R2023b.
+
 Tasks
 -----
 
