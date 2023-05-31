@@ -24,6 +24,8 @@ Prerequisites
 This is a continuation of the first part of the tutorial: :doc:`./Setting-Up-Simulation-Webots-Basic`.
 It is mandatory to start with the first part to set up the custom packages and necessary files.
 
+This tutorial is only compatible with version 2023.1.0 of ``webots_ros2`` and Webots R2023b.
+
 Tasks
 -----
 
