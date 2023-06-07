@@ -5,7 +5,7 @@ Setting up a Reset Handler
 
 **Tutorial level:** Advanced
 
-**Time:** 20 minutes
+**Time:** 10 minutes
 
 .. contents:: Contents
    :depth: 2
