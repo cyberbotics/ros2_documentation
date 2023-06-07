@@ -56,7 +56,7 @@ In the launch file of your package, add the ``respawn`` parameter.
           robot_driver
       ])
 
-On the reset, Webots kills all driver nodes.
+On reset, Webots kills all driver nodes.
 Therefore, to start them again after the reset is done, you can set the ``respawn`` property of the driver node to ``True``.
 It will ensure driver nodes are up and running after the reset.
 
