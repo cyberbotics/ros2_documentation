@@ -57,7 +57,7 @@ In the launch file of your package, add the ``respawn`` parameter.
       ])
 
 On reset, Webots kills all driver nodes.
-Therefore, to start them again after the reset is done, you can set the ``respawn`` property of the driver node to ``True``.
+Therefore, to start them again after reset, you should set the ``respawn`` property of the driver node to ``True``.
 It will ensure driver nodes are up and running after the reset.
 
 Reset Handler for Multiple Nodes (No Shutdown Required)
