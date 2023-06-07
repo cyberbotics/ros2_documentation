@@ -107,7 +107,7 @@ If you have some other nodes that have to be started along with the driver node 
       ] + get_ros2_control_spawners())
 
 It is not possible to use the ``respawn`` property on the ``ros2_control`` node, as the spawner exits during launch time and not when the simulation is reset.
-Instead we can declare a list of nodes in a function (e.g. ``get_ros2_control_spawners``).
+Instead we should declare a list of nodes in a function (e.g. ``get_ros2_control_spawners``).
 This list is started along other nodes when executing the launch file.
 It is also declared as action to execute when the ``robot_driver`` node exits, which corresponds to the moment when the simulation is reset in the Webots interface.
 The ``robot_driver`` node still has the ``respawn`` property set to ``True``, so that it gets restarted along with ``ros2_control`` nodes.
