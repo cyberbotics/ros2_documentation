@@ -156,6 +156,7 @@ You can either install ``webots_ros2`` from the official released package, or in
 
         .. code-block:: console
 
+            export PYTHONWARNINGS="ignore:setup.py install is deprecated::setuptools.command.install"
             colcon build
 
         Source this workspace.
