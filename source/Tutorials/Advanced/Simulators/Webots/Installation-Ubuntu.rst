@@ -92,6 +92,7 @@ You can either install the official released package, or install it from the lat
 
         .. code-block:: console
 
+            export PYTHONWARNINGS="ignore:setup.py install is deprecated::setuptools.command.install"
             colcon build
 
         Source this workspace.
