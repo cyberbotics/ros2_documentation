@@ -104,6 +104,7 @@ The following commands must be run inside the WSL environment.
 
         .. code-block:: console
 
+            export PYTHONWARNINGS="ignore:setup.py install is deprecated::setuptools.command.install"
             colcon build
 
         Source this workspace.
